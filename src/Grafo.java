@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Grafo {
-    private List<Vertice> listaVertices;
+    private List<Vertice> listaVertices = new ArrayList<>();
 
     public void agregarNodo(Vertice verticeNuevo) {
         if (listaVertices == null) {
@@ -17,7 +17,7 @@ public class Grafo {
     }
 
     public void agregarAristas() {
-        int opcion;
+        int opcion = 0;
         Vertice destino, origen;
         int seleccionOrigen, seleccionDestino;
         Scanner entrada = new Scanner(System.in);
@@ -37,7 +37,20 @@ public class Grafo {
                 if (peso > 0) {
                     origen.getAristas().add(new Arista(origen, destino, peso));
                     System.out.println("Agregar mas aristas: 1)SI\t2)NO");
-                    opcion = entrada.nextInt();
+                    boolean condicional = true;
+                    while (condicional) {
+                        try {
+                            opcion = entrada.nextInt();
+                            if (opcion == 1 || opcion == 2) {
+                                condicional = false;
+                            } else {
+                                System.out.println("Opción inválida. Por favor, ingrese 1 para sí o 2 para no.");
+                            }
+                        } catch (InputMismatchException e) {
+                            System.out.println("Error: debe ingresar un número. Intente de nuevo.");
+                            entrada.next(); 
+                        }
+                    }
                 } else {
                     System.out.println("El peso debe ser positivo. Intente de nuevo.");
                     opcion = 1;
@@ -56,9 +69,7 @@ public class Grafo {
             List<Arista> aristas = vertice.getAristas();
             for (int j = 0; j < aristas.size(); j++) {
                 Arista arista = aristas.get(j);
-                if ((arista.getInicio().equals(origen) && arista.getFin().equals(destino)))
-//                    (arista.getInicio().equals(destino) && arista.getFin().equals(origen))||) OR PARA GRAFO NO DIGIDO
-                {
+                if ((arista.getInicio().equals(origen) && arista.getFin().equals(destino))) {
                     return true;
                 }
             }

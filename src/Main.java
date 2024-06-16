@@ -20,37 +20,29 @@ public class Main {
 
     public static Vertice crearVertice(Grafo grafo) {
         Scanner entrada = new Scanner(System.in);
-        System.out.println("Ingresa el valor del vertice (TIENE QUE SER MÚlTIPLO DE 13)");
-            int val = entrada.nextInt();
-            while (val%13 != 0) {
-                boolean flag = false;
+        int val;
+        boolean condicional = true;
+        Vertice vertice = null;
+        while (condicional) {
+            System.out.println("Ingresa el valor del vertice (TIENE QUE SER MÚlTIPLO DE 13)");
+            val = entrada.nextInt();
+            if (val % 13 != 0) {
                 System.out.println("Valor no es múltiple de 13");
-                val = entrada.nextInt();
+            } else {
+                boolean existe = false;
                 for (int i = 0; i < grafo.getVertices().size(); i++) {
                     if (grafo.getVertices().get(i).getDato() == val) {
-                        flag = true;
+                        System.out.println("Este vertice ya existe, intente de nuevo");
+                        existe = true;
                         i = grafo.getVertices().size();
                     }
                 }
-                if (flag){
-                    System.out.println("Vertice repetido, intente de nuevo");
-                    val = entrada.nextInt();
+                if (!existe) {
+                    vertice = new Vertice(val);
+                    condicional = false;
                 }
             }
-//        if (flag) {
-//            System.out.println("Este valor ya esta repetido");
-//        }
-        return new Vertice(val);
+        }
+        return vertice;
     }
-
-//    public static boolean checkValidation (Vertice vertice) {
-//        boolean b = false;
-//        for (int i = 0; i < grafo.getVertices().size(); i++) {
-//            if (vertice.getDato() == grafo.getVertices().get(i).getDato()) {
-//                b = true;
-//                i = grafo.getVertices().size();
-//            }
-//        }
-//        return b;
-//    }
 }
