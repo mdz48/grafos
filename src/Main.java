@@ -16,6 +16,13 @@ public class Main {
             }
             grafo.agregarAristas();
             System.out.println(grafo);
+        System.out.println("Ingrese el vértice de origen para hacer el recorrido: ");
+        for (int i = 0; i < grafo.getVertices().size(); i++) {
+            System.out.println((i + 1) + ") " + grafo.getVertices().get(i).getDato());
+        }
+        int seleccion = entrada.nextInt();
+        Vertice inicial = grafo.getVertices().get(seleccion - 1);
+        grafo.recorridoProfundidad(inicial);
     }
 
     public static Vertice crearVertice(Grafo grafo) {

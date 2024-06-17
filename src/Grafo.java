@@ -77,6 +77,41 @@ public class Grafo {
         return false;
     }
 
+    public void recorridoProfundidad(Vertice inicial) {
+        List<Vertice> listaVisitados = new ArrayList<>();
+        List<Vertice> pila = new ArrayList<>();
+
+        pila.add(inicial);
+
+        while (!pila.isEmpty()) {
+            Vertice n = pila.remove(0);
+
+            if (!listaVisitados.contains(n)) {
+                listaVisitados.add(n);
+
+                List<Arista> aristas = n.getAristas();
+                List<Vertice> adyacentes = new ArrayList<>();
+                for (int i = 0; i < aristas.size(); i++) {
+                    adyacentes.add(aristas.get(i).getFin());
+                }
+
+                if (!adyacentes.isEmpty()) {
+                    for (int i = 0; i < adyacentes.size(); i++) {
+                        Vertice adyacente = adyacentes.get(i);
+                        pila.add(0, adyacente);
+                    }
+                }
+            }
+        }
+
+        // Desplegar la trayectoria, listaVisitados
+        System.out.println("Recorrido de profundidad:");
+        for (int i = 0; i < listaVisitados.size(); i++) {
+            Vertice v = listaVisitados.get(i);
+            System.out.print(v.getDato() + " ");
+        }
+    }
+
 
     @Override
     public String toString() {
