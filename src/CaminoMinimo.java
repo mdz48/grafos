@@ -1,9 +1,7 @@
-import java.util.*;
-
 public class CaminoMinimo {
-    int[] D;
+    int[] D; //Distancias minimas
     int[][] pesos;
-    int[] P;
+    int[] ultimo; //Array de predecesores, almacena el último vértice en el camino más corto hacia cada vértice.
     int n, origen;
     boolean[] F;
     Grafo grafo;
@@ -20,7 +18,7 @@ public class CaminoMinimo {
             }
         }
         this.D = new int[n];
-        this.P = new int[n];
+        this.ultimo = new int[n];
         this.F = new boolean[n];
     }
 
@@ -28,7 +26,7 @@ public class CaminoMinimo {
         for (int i = 0; i < n; i++) {
             F[i] = false;
             D[i] = Integer.MAX_VALUE;
-            P[i] = -1;
+            ultimo[i] = -1;
         }
         D[s] = 0;
         for (int i = 0; i < n; i++) {
@@ -37,7 +35,7 @@ public class CaminoMinimo {
             for (int w = 0; w < n; w++) {
                 if (!F[w] && pesos[v][w] != 0 && D[v] + pesos[v][w] < D[w]) {
                     D[w] = D[v] + pesos[v][w];
-                    P[w] = v;
+                    ultimo[w] = v;
                 }
             }
         }
@@ -66,9 +64,9 @@ public class CaminoMinimo {
     }
 
     private void recuperarCamino(int v) {
-        if (P[v] != -1) {
-            recuperarCamino(P[v]);
-            System.out.print(grafo.getVertices().get(P[v]).getDato() + " -> ");
+        if (ultimo[v] != -1) {
+            recuperarCamino(ultimo[v]);
+            System.out.print(grafo.getVertices().get(ultimo[v]).getDato() + " -> ");
         }
     }
 }
