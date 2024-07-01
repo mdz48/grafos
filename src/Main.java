@@ -25,29 +25,32 @@ public class Main {
         grafo.recorridoProfundidad(inicial);
 
 
-        System.out.println("Ingrese el vértice de origen para el algoritmo de Dijkstra: ");
-        for (int i = 0; i < grafo.getVertices().size(); i++) {
-            System.out.println((i + 1) + ") " + grafo.getVertices().get(i).getDato());
-        }
-        seleccion = entrada.nextInt()-1;
-
-        CaminoMinimo caminoMinimo = new CaminoMinimo(grafo, seleccion);
-        caminoMinimo.Dijkstra(grafo, seleccion);
-        caminoMinimo.mostrarResultados(grafo, seleccion);
-
 
         System.out.println("Ingrese el vertice que necesita el articulo");
         for (int i = 0; i < grafo.getVertices().size(); i++) {
             System.out.println((i + 1) + ") " + grafo.getVertices().get(i).getDato());
         }
         seleccion = entrada.nextInt() - 1;
-        Vertice cercano = grafo.centroMasCercanoConStock(seleccion);
+        Vertice cercano = grafo.searchStock(seleccion);
         if (cercano == null) {
             System.out.println("No existe articulos disponibles en ningun centro");
         } else {
             System.out.println("El centro mas cercano con disponibilidad es " + cercano.getDato());
         }
 
+
+
+
+
+//                System.out.println("Ingrese el vértice de origen para el algoritmo de Dijkstra: ");
+//        for (int i = 0; i < grafo.getVertices().size(); i++) {
+//            System.out.println((i + 1) + ") " + grafo.getVertices().get(i).getDato());
+//        }
+//        seleccion = entrada.nextInt()-1;
+//
+//        CaminoMinimo caminoMinimo = new CaminoMinimo(grafo, seleccion);
+//        caminoMinimo.Dijkstra(grafo, seleccion);
+//        caminoMinimo.algoritmoDijkstra(grafo, seleccion);
     }
 
     public static Vertice crearVertice(Grafo grafo) {

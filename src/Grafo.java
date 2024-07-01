@@ -16,7 +16,7 @@ public class Grafo {
         return listaVertices;
     }
 
-    public Vertice centroMasCercanoConStock(int origen) {
+    public Vertice searchStock(int origen) {
         CaminoMinimo caminoMinimo = new CaminoMinimo(this, origen);
         caminoMinimo.Dijkstra(this, origen);
 

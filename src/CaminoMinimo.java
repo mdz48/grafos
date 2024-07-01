@@ -53,15 +53,15 @@ public class CaminoMinimo {
         return v;
     }
 
-    public void mostrarResultados(Grafo g, int origen) {
-        for (int i = 0; i < n; i++) {
-            if (i != origen) {
-                System.out.print("Distancia del vertice " + g.getVertices().get(origen).getDato() + " al vértice " + g.getVertices().get(i).getDato() + ": " + D[i] + " | Camino con la distancia más corta: ");
-                recuperarCamino(i);
-                System.out.println(g.getVertices().get(i).getDato());
-            }
-        }
-    }
+//    public void algoritmoDijkstra(Grafo g, int origen) {
+//        for (int i = 0; i < n; i++) {
+//            if (i != origen) {
+//                System.out.print("Distancia del vertice " + g.getVertices().get(origen).getDato() + " al vértice " + g.getVertices().get(i).getDato() + ": " + D[i] + " | Camino con la distancia más corta: ");
+//                recuperarCamino(i);
+//                System.out.println(g.getVertices().get(i).getDato());
+//            }
+//        }
+//    }
 
     private void recuperarCamino(int v) {
         if (ultimo[v] != -1) {
