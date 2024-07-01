@@ -16,6 +16,21 @@ public class Grafo {
         return listaVertices;
     }
 
+    public Vertice centroMasCercanoConStock(int origen) {
+        CaminoMinimo caminoMinimo = new CaminoMinimo(this, origen);
+        caminoMinimo.Dijkstra(this, origen);
+
+        int minDistancia = Integer.MAX_VALUE;
+        Vertice centroCercano = null;
+        for (int i = 0; i < listaVertices.size(); i++) {
+            if (i != origen && listaVertices.get(i).getStock() > 0 && caminoMinimo.D[i] < minDistancia) {
+                minDistancia = caminoMinimo.D[i];
+                centroCercano = listaVertices.get(i);
+            }
+        }
+        return centroCercano;
+    }
+
     public void agregarAristas() {
         int opcion = 0;
         Vertice destino, origen;
@@ -25,12 +40,43 @@ public class Grafo {
             for (int i = 0; i < listaVertices.size(); i++) {
                 System.out.println((i + 1) + ") " + listaVertices.get(i).getDato());
             }
-            System.out.println("Seleccione el numero del vertice origen");
-            seleccionOrigen = entrada.nextInt();
-            origen = listaVertices.get(seleccionOrigen - 1);
-            System.out.println("Indique el numero del vertice destino");
-            seleccionDestino = entrada.nextInt();
-            destino = listaVertices.get(seleccionDestino - 1);
+//            System.out.println("Seleccione el numero del vertice origen");
+//            seleccionOrigen = entrada.nextInt();
+
+            while (true) {
+                System.out.println("Seleccione el número del vértice origen:");
+                try {
+                    seleccionOrigen = entrada.nextInt();
+                    origen = listaVertices.get(seleccionOrigen - 1);
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("Error: debe ingresar un número. Intente de nuevo.");
+                    entrada.next(); // Limpiar el buffer de entrada
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Error: número fuera de rango. Intente de nuevo.");
+                }
+            }
+
+//            origen = listaVertices.get(seleccionOrigen - 1);
+//            System.out.println("Indique el numero del vertice destino");
+//            seleccionDestino = entrada.nextInt();
+//            destino = listaVertices.get(seleccionDestino - 1);
+            while (true) {
+                System.out.println("Indique el número del vértice destino:");
+                try {
+                    seleccionDestino = entrada.nextInt();
+                    destino = listaVertices.get(seleccionDestino - 1);
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("Error: debe ingresar un número. Intente de nuevo.");
+                    entrada.next(); // Limpiar el buffer de entrada
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Error: número fuera de rango. Intente de nuevo.");
+                }
+            }
+
+
+
             System.out.println("Indique el peso");
             int peso = entrada.nextInt();
             if ( !existeArista(origen, destino)) {
@@ -63,7 +109,7 @@ public class Grafo {
         } while (opcion == 1);
     }
 
-    private boolean existeArista(Vertice origen, Vertice destino) {
+    public boolean existeArista(Vertice origen, Vertice destino) {
         for (int i = 0; i < listaVertices.size(); i++) {
             Vertice vertice = listaVertices.get(i);
             List<Arista> aristas = vertice.getAristas();
@@ -110,6 +156,7 @@ public class Grafo {
             Vertice v = listaVisitados.get(i);
             System.out.print(v.getDato() + " ");
         }
+        System.out.println();
     }
 
 

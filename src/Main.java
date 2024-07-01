@@ -16,13 +16,38 @@ public class Main {
             }
             grafo.agregarAristas();
             System.out.println(grafo);
-        System.out.println("Ingrese el vértice de origen para hacer el recorrido: ");
+        System.out.println("Ingrese el vértice de origen para hacer el recorrido de PROFUNDIDAD: ");
         for (int i = 0; i < grafo.getVertices().size(); i++) {
             System.out.println((i + 1) + ") " + grafo.getVertices().get(i).getDato());
         }
         int seleccion = entrada.nextInt();
         Vertice inicial = grafo.getVertices().get(seleccion - 1);
         grafo.recorridoProfundidad(inicial);
+
+
+        System.out.println("Ingrese el vértice de origen para el algoritmo de Dijkstra: ");
+        for (int i = 0; i < grafo.getVertices().size(); i++) {
+            System.out.println((i + 1) + ") " + grafo.getVertices().get(i).getDato());
+        }
+        seleccion = entrada.nextInt()-1;
+
+        CaminoMinimo caminoMinimo = new CaminoMinimo(grafo, seleccion);
+        caminoMinimo.Dijkstra(grafo, seleccion);
+        caminoMinimo.mostrarResultados(grafo, seleccion);
+
+
+        System.out.println("Ingrese el vertice que necesita el articulo");
+        for (int i = 0; i < grafo.getVertices().size(); i++) {
+            System.out.println((i + 1) + ") " + grafo.getVertices().get(i).getDato());
+        }
+        seleccion = entrada.nextInt() - 1;
+        Vertice cercano = grafo.centroMasCercanoConStock(seleccion);
+        if (cercano == null) {
+            System.out.println("No existe articulos disponibles en ningun centro");
+        } else {
+            System.out.println("El centro mas cercano con disponibilidad es " + cercano.getDato());
+        }
+
     }
 
     public static Vertice crearVertice(Grafo grafo) {
@@ -30,26 +55,38 @@ public class Main {
         int val;
         boolean condicional = true;
         Vertice vertice = null;
-        while (condicional) {
-            System.out.println("Ingresa el valor del vertice (TIENE QUE SER MÚlTIPLO DE 13)");
-            val = entrada.nextInt();
-            if (val % 13 != 0) {
-                System.out.println("Valor no es múltiple de 13");
-            } else {
-                boolean existe = false;
-                for (int i = 0; i < grafo.getVertices().size(); i++) {
-                    if (grafo.getVertices().get(i).getDato() == val) {
-                        System.out.println("Este vertice ya existe, intente de nuevo");
-                        existe = true;
-                        i = grafo.getVertices().size();
+        do  {
+            try {
+                System.out.println("Ingresa el valor del vertice (TIENE QUE SER MÚlTIPLO DE 13)");
+                val = entrada.nextInt();
+                System.out.println("Ingrese el stock del articulo");
+                int stock = entrada.nextInt();
+
+                if (val % 13 != 0) {
+                    System.out.println("Valor no es múltiple de 13");
+                } else if (stock < 0) {
+                    System.out.println("Ingrese un stock mayor o igual a 0");
+                } else {
+                    boolean existe = false;
+                    for (int i = 0; i < grafo.getVertices().size(); i++) {
+                        if (grafo.getVertices().get(i).getDato() == val) {
+                            System.out.println("Este vertice ya existe, intente de nuevo");
+                            existe = true;
+                            i = grafo.getVertices().size();
+                        }
+                    }
+                    if (!existe ) {
+                        vertice = new Vertice(val, stock);
+                        condicional = false;
                     }
                 }
-                if (!existe) {
-                    vertice = new Vertice(val);
-                    condicional = false;
-                }
+            } catch (Exception e){
+                System.out.println("Ingrese digitos");
+                entrada.next();
+                condicional = true;
             }
-        }
+
+        } while (condicional);
         return vertice;
     }
 }
