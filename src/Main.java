@@ -31,12 +31,12 @@ public class Main {
             System.out.println((i + 1) + ") " + grafo.getVertices().get(i).getDato());
         }
         seleccion = entrada.nextInt() - 1;
-        Vertice cercano = grafo.searchStock(seleccion);
-        if (cercano == null) {
-            System.out.println("No existe articulos disponibles en ningun centro");
-        } else {
-            System.out.println("El centro mas cercano con disponibilidad es " + cercano.getDato());
-        }
+            Vertice cercano = grafo.searchStock(grafo ,seleccion);
+            if (cercano == null) {
+                System.out.println("No existe articulos disponibles en ningun centro");
+            } else {
+                System.out.println("El centro mas cercano con disponibilidad es " + cercano.getDato());
+            }
 
 
 

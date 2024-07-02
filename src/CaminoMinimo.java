@@ -1,3 +1,6 @@
+
+
+
 public class CaminoMinimo {
     int[] D; //Distancias minimas
     int[][] pesos;
@@ -23,21 +26,26 @@ public class CaminoMinimo {
     }
 
     public void Dijkstra(Grafo g, int s) {
-        for (int i = 0; i < n; i++) {
-            F[i] = false;
-            D[i] = Integer.MAX_VALUE;
-            ultimo[i] = -1;
-        }
-        D[s] = 0;
-        for (int i = 0; i < n; i++) {
-            int v = minimo();
-            F[v] = true;
-            for (int w = 0; w < n; w++) {
-                if (!F[w] && pesos[v][w] != 0 && D[v] + pesos[v][w] < D[w]) {
-                    D[w] = D[v] + pesos[v][w];
-                    ultimo[w] = v;
+        try{
+            for (int i = 0; i < n; i++) {
+                F[i] = false;
+                D[i] = pesos[origen][i];
+                ultimo[i] = origen;
+            }
+            F[origen] = true;
+            D[origen] = 0;
+            for (int i = 1; i < n; i++) {
+                int v = minimo();
+                F[v] = true;
+                for (int w = 1; w < n; w++) {
+                    if (!F[w] && pesos[v][w] != 0 && D[v] + pesos[v][w] < D[w]) {
+                        D[w] = D[v] + pesos[v][w];
+                        ultimo[w] = v;
+                    }
                 }
             }
+        }catch (Exception e) {
+            System.out.println();
         }
     }
 

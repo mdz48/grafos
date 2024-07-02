@@ -16,9 +16,9 @@ public class Grafo {
         return listaVertices;
     }
 
-    public Vertice searchStock(int origen) {
-        CaminoMinimo caminoMinimo = new CaminoMinimo(this, origen);
-        caminoMinimo.Dijkstra(this, origen);
+    public Vertice searchStock(Grafo grafo,int origen) {
+        CaminoMinimo caminoMinimo = new CaminoMinimo(grafo, origen);
+        caminoMinimo.Dijkstra(grafo, origen);
 
         int minDistancia = Integer.MAX_VALUE;
         Vertice centroCercano = null;
